@@ -1,20 +1,12 @@
 from flask import Flask, jsonify
-from flask_httpauth import HTTPBasicAuth
 
+from api import api
+from authentication import auth
 
 app = Flask(__name__)
-auth = HTTPBasicAuth()
 
-users = {
-    "demo": "123",
-    "admin": "admin"
-}
+app.register_blueprint(api, url_prefix='/api/v1')
 
-@auth.get_password
-def get_pw(username):
-    if username in users:
-        return users.get(username)
-    return None
 
 @app.route('/')
 @auth.login_required
@@ -33,4 +25,4 @@ def api_call(user_input):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
