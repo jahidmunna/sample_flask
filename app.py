@@ -13,7 +13,12 @@ app.register_blueprint(api, url_prefix='/api/v1')
 def index():
     return "Hello, %s!" % auth.username()
 
-
+@app.route('/home')
+def home():
+    return '''
+        Hello, There!   This is a home button"
+        '''
+        
 @app.route('/<user_input>', methods=['GET'])
 @auth.login_required
 def api_call(user_input):
@@ -23,15 +28,20 @@ def api_call(user_input):
     }
     return jsonify(response)
 
-@app.route('/logged_out')
-def Logout():
-     return redirect("http://random_user:random_password@127.0.0.1:5000/logout")
 
 @app.route('/logout')
 def logout_page():
     return '''
-        Logged Out! <br>Click <a href='/'> HERE</a> to go to the home page 
-    '''
+        <button onclick="myFunction()">Logout</button>
+        <script>
+        function myFunction(){
+            alert("You Are Logged Out!")
+            var loc = window.location;
+            var url = "http://random_user:random_password@"+loc.hostname + ":"+  loc.port + '/';
+            window.location.replace(url);
+        };
+        </script>
+        '''
 
 if __name__ == '__main__':
     app.run(debug=True)
