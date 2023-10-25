@@ -13,5 +13,5 @@ pycodestyle==2.9.0
 requests==2.31.0
 toml==0.10.2
 urllib3==1.26.11
-Werkzeug==2.2.3
+Werkzeug==3.0.1
 zipp==3.8.1
